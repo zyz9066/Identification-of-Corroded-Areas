@@ -16,7 +16,7 @@ This is the preparation step for the third step. We cut some of the known corrod
 
 The basic idea is that a corroded area presents a rough texture and the roughness can be evaluated with the energy of the symmetric gray-level co-occurrence-matrix (GLCM). 
 
-To calculate the energy for all 15\*15 patches of each image, we read the image and get its gray scale presentation array, and then calculate the GLCM and energy for each 15*15 patch. If an patch has energy less than a threshold (0.05), which means it’s rough, we pass it to next color step for further analysis. 
+To calculate the energy for all 15\*15 patches of each image, we read the image and get its gray scale presentation array, and then calculate the GLCM and energy for each 15\*15 patch. If an patch has energy less than a threshold (0.05), which means it’s rough, we pass it to next color step for further analysis. 
 
 ### Color Step
 
