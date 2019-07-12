@@ -10,13 +10,13 @@ The solution we use is based on the Corrosion Detection for Automated Visual Ins
 
 ### Training step
 
-This is the preparation step for the third step. We cut some of the known corroded area from some sample images and save them in a folder to serve as training image set. Then we load them to construct a HS based 2-dimensional histogram.  After that, we get the max value from histogram and update all values less than 10%*max to 0. 
+This is the preparation step for the third step. We cut some of the known corroded area from some sample images and save them in a folder to serve as training image set. Then we load them to construct a HS based 2-dimensional histogram.  After that, we get the max value from histogram and update all values less than 10%\*max to 0. 
 
 ### Roughness step
 
 The basic idea is that a corroded area presents a rough texture and the roughness can be evaluated with the energy of the symmetric gray-level co-occurrence-matrix (GLCM). 
 
-To calculate the energy for all 15*15 patches of each image, we read the image and get its gray scale presentation array, and then calculate the GLCM and energy for each 15*15 patch. If an patch has energy less than a threshold (0.05), which means it’s rough, we pass it to next color step for further analysis. 
+To calculate the energy for all 15\*15 patches of each image, we read the image and get its gray scale presentation array, and then calculate the GLCM and energy for each 15*15 patch. If an patch has energy less than a threshold (0.05), which means it’s rough, we pass it to next color step for further analysis. 
 
 ### Color Step
 
