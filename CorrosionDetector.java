@@ -1,4 +1,3 @@
-package ca.ubishops.yunxiuzhang.summerProjectChallenge1;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
