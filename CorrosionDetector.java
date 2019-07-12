@@ -255,8 +255,8 @@ public class CorrosionDetector {
 		long begin= System.nanoTime();
 		CorrosionDetector d = new CorrosionDetector();
 		d.setImageExt("png");
-		d.setImageSetFolder("C:/BS/SummerProject/set");
-		d.setSourceFolder("C:/BS/SummerProject/pics");
+		d.setImageSetFolder("C:/BS/set");
+		d.setSourceFolder("C:/BS/pics");
 		
 		d.detect();
 		long time=System.nanoTime()-begin;
