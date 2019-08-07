@@ -1,12 +1,17 @@
+package ca.ubishops.yunxiuzhang.summerProjectChallenge1;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Calendar;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
 public class CorrosionDetector {
+	
+	private static Scanner scan = new Scanner(System.in);
 
 	private static final String DOT = ".";
 
@@ -61,6 +66,7 @@ public class CorrosionDetector {
 				}
 			}
 		}
+		System.out.println("max==" + max);
 		for (int i = 0; i < histogram.length; i++) {
 			for (int j = 0; j < histogram[0].length; j++) {
 				if (histogram[i][j] < 0.1 * max) {
@@ -147,7 +153,7 @@ public class CorrosionDetector {
 				}
 			}
 		}
-
+		
 		double mV = 50 * 32 / 256.0, mS = 50 * 32 / 256.0, MV = 200 * 32 / 256.0;
 //		double mV = 50, mS = 50, MV = 200;
 		for (int y = p.getY(); y < p.getY() + p.getHeight(); y++) {
@@ -252,16 +258,138 @@ public class CorrosionDetector {
 	
 
 	public static void main(String[] args) throws Exception {
-		long begin= System.nanoTime();
+		
+		try {
+
+			String greetings = getGreetings();
+
+			System.out.println("****************************************************");
+			System.out.println("************Corrosion Detection Application****************");
+			System.out.println("******By Yunxiu Zhang, Xiaoping Yu, Tianye Zhao*********");
+			System.out.println("****************************************************");
+			System.out.println();
+			System.out.println(greetings + "! Welcome to Corrosion Detection Application.");
+			System.out.println();
+			System.out.println("This application is the solution of CS590 Challenge 1 ");
+			System.out.println("****************************************************");
+
+			
+
+			while (true) {
+				System.out.println();
+				System.out.println("Please choose below menu to continue...");
+				System.out.println("********************* Menu ************************");
+				System.out.println("*****************1. Inspect pictures*********************");
+				System.out.println("*****************0. Exit*********************");
+				System.out.println();
+
+				System.out.println("Please input a number to choose a menu");
+				System.out.println();
+
+				String input = scan.nextLine();
+				if (input == null || input.length() != 1 || input.charAt(0) < '0' || input.charAt(0) > '1') {
+					System.err.println("Invalid input, please try again");
+					continue;
+				}
+
+				int num = Integer.parseInt(input);
+
+				switch (num) {
+				case 1:
+					inspectImages();
+					break;
+				case 0:
+					scan.close();
+					System.out.println("Goodbye...");
+					System.exit(0);
+				default:
+					System.err.println("Invalid input, please try again");
+					break;
+				}
+
+			}			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+
+	}
+	
+	private static void inspectImages() throws Exception {
 		CorrosionDetector d = new CorrosionDetector();
-		d.setImageExt("png");
-		d.setImageSetFolder("C:/BS/set");
-		d.setSourceFolder("C:/BS/pics");
+//		d.setImageExt("png");
+//		d.setImageSetFolder("C:/BS/SummerProject/set");
+//		d.setSourceFolder("C:/BS/SummerProject/pics");
+		
+		d.setImageSetFolder(getImageSet());
+		d.setSourceFolder(getPictureFolder());
 		
 		d.detect();
-		long time=System.nanoTime()-begin;
-		System.out.println("time=="+TimeUnit.MILLISECONDS.convert(time, TimeUnit.NANOSECONDS));
+	}
+	
+	private static String getPictureFolder() {
 
+		System.out.println("Please input the full location of the pictures for corrosion detection");
+		System.out.println();
+		String path = scan.nextLine();
+
+		File file = new File(path);
+		while (!file.exists() || !file.isDirectory()) {
+			String msg = "";
+			if (!file.exists()) {
+				msg = "Sorry, the folder does not exist, please input again";
+			} else if (!file.isDirectory()) {
+				msg = "Sorry, this is not a directory, please input again";
+			} 
+			System.out.println();
+			System.err.println(msg);
+			System.out.println();
+			path = scan.nextLine();
+
+			file = new File(path);
+		}
+		return path;
+	}
+	
+	private static String getImageSet() {
+
+		System.out.println("Please input the full location of the image data set for training");
+		System.out.println();
+		String path = scan.nextLine();
+
+		File file = new File(path);
+		while (!file.exists() || !file.isDirectory()) {
+			String msg = "";
+			if (!file.exists()) {
+				msg = "Sorry, the folder does not exist, please input again";
+			} else if (!file.isDirectory()) {
+				msg = "Sorry, this is not a directory, please input again";
+			} 
+			System.out.println();
+			System.err.println(msg);
+			System.out.println();
+			path = scan.nextLine();
+
+			file = new File(path);
+		}
+		return path;
+	}
+	
+	
+	private static String getGreetings() {
+		String msg = null;
+		Calendar c = Calendar.getInstance();
+		int hour = c.get(Calendar.HOUR_OF_DAY);
+		if (hour >= 0 && hour < 12) {
+			msg = "Good Morning";
+		} else if (hour >= 12 && hour < 16) {
+			msg = "Good Afternoon";
+		} else if (hour >= 16 && hour < 22) {
+			msg = "Good Evening";
+		} else {
+			msg = "Good Night";
+		}
+		return msg;
 	}
 
 }

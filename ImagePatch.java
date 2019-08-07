@@ -1,3 +1,4 @@
+package ca.ubishops.yunxiuzhang.summerProjectChallenge1;
 
 public class ImagePatch {
 	private int x;
